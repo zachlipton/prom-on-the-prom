@@ -31,8 +31,12 @@
   width: 250px;
 }
 
-.alignright {
-  text-align: right;
+.aligncenter {
+  text-align: center;
+}
+
+.row.specialthanks {
+  min-height: 160px;
 }
 
 .walksf {
@@ -49,4 +53,7 @@
   background-repeat: no-repeat;
   height: 60px;
   width: 250px;
+  @include breakpoint('<=mobile') {
+    height: 160px !important;
+  }
 }
