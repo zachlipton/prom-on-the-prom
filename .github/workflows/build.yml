@@ -19,7 +19,7 @@ jobs:
       - uses: gha-utilities/sass-build@v0.4.9
         with:
           source: assets/sass/main.scss
-          destination: assets/css/
+          destination: assets/css/main.css
           outputStyle: compressed
           sourceMap: true
       - uses: actions/upload-artifact@v3
