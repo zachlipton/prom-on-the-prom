@@ -7,11 +7,13 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    
+  permissions:
+    id-token: write
+    contents: read
 
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
@@ -27,5 +29,27 @@ jobs:
           name: build
           path: ./
         
-
-      
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::191639242104:role/github-promontheprom
+          role-session-name: session
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@0.5.1
+          with:
+            args: --acl public-read --follow-symlinks --delete --exclude '.git/*'
+            env:
+              AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+              AWS_REGION: ${{ secrets.AWS_REGION }}
+              SOURCE_DIR: 'build' 
+          
