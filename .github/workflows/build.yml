@@ -17,10 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: gha-utilities/sass-build@v0.4.9
-        source: assets/sass/main.scss
-        destination: assets/css/
-        outputStyle: compressed
-        sourceMap: true
+        with:
+          source: assets/sass/main.scss
+          destination: assets/css/
+          outputStyle: compressed
+          sourceMap: true
       - uses: actions/upload-artifact@v3
         with:
           name: build
