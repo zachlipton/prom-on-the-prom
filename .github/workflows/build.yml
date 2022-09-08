@@ -1,5 +1,9 @@
 name: build
 
+permissions:
+  id-token: write
+  contents: read
+
 # Controls when the workflow will run
 on:
   push:
@@ -7,10 +11,6 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-    
-  permissions:
-    id-token: write
-    contents: read
 
 jobs:
   build:
