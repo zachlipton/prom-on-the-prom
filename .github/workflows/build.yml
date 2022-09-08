@@ -48,11 +48,7 @@ jobs:
           role-session-name: session
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Deploy to S3
-        run: >
-          aws s3 sync
-          ./build
-          s3://${{ secrets.AWS_S3_BUCKET }}/
-          --follow-symlinks --delete --exclude '.git/*'
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/ --follow-symlinks --delete --exclude '.git/*'
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
