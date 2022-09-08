@@ -52,7 +52,7 @@ jobs:
           aws s3 sync
           ./build
           s3://${{ secrets.AWS_S3_BUCKET }}/
-          --acl public-read --follow-symlinks --delete --exclude '.git/*'
+          --follow-symlinks --delete --exclude '.git/*'
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
