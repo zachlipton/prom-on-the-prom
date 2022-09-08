@@ -11,6 +11,9 @@
   font-style: normal;
   text-transform: none;
   font-size: 4.5em;
+  @include breakpoint('<=mobile') {
+    line-height: 1.2em;
+  }
 }
 
 #header h2,h3 {
@@ -24,6 +27,13 @@
   font-family: bodoni-urw,serif;
   font-weight: 700;
   font-style: normal;
+}
+
+#header > div {
+  @include breakpoint('>mobile') {
+    width: 80%;
+    margin: auto;
+  }
 }
 
 .row .logo {
