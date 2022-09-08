@@ -53,9 +53,12 @@ jobs:
           ./build
           s3://${{ secrets.AWS_S3_BUCKET }}/
           --follow-symlinks --delete --exclude '.git/*'
-          | awk '{print $2;}' 
-          | xargs aws cloudfront create-invalidation --distribution-id  ${{ secrets.CF_DISTRO }} --paths
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+      -name: Invalidate Cloudfront
+        run: aws cloudfront create-invalidation --distribution-id  ${{ secrets.CF_DISTRO }} --path '/*'
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        
           
